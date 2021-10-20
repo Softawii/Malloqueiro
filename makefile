@@ -34,7 +34,7 @@ library: setup
 		${MALLOQUEIRO_OUTPUT_FOLDER}/Malloqueiro.o \
 		${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroGerency.o
 
-	gcc -shared -o ${LIB_FOLDER}/malloqueiro.so ${MALLOQUEIRO_OUTPUT_FOLDER}/libmalloqueiro.a
+	$(CXX) -shared -o ${LIB_FOLDER}/malloqueiro.so ${MALLOQUEIRO_OUTPUT_FOLDER}/libmalloqueiro.a
 
 run: compile
 	@echo "----------------- Running program"
