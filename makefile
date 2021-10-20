@@ -27,14 +27,14 @@ compile: library
 
 library: setup
 	@echo "----------------- Linking libraries"
-	$(CXX) -c ${MALLOQUEIRO_SOURCE_FOLDER}/Malloqueiro.cpp -o ${MALLOQUEIRO_OUTPUT_FOLDER}/Malloqueiro.o
-	$(CXX) -c ${MALLOQUEIRO_SOURCE_FOLDER}/Gerency/MalloqueiroGerency.cpp -o ${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroGerency.o
+	$(CXX) -c ${MALLOQUEIRO_SOURCE_FOLDER}/Malloqueiro.cpp -o ${MALLOQUEIRO_OUTPUT_FOLDER}/Malloqueiro.o $(CXXFLAGS)
+	$(CXX) -c ${MALLOQUEIRO_SOURCE_FOLDER}/Gerency/MalloqueiroGerency.cpp -o ${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroGerency.o $(CXXFLAGS)
 
 	ar rvs ${MALLOQUEIRO_OUTPUT_FOLDER}/libmalloqueiro.a \
 		${MALLOQUEIRO_OUTPUT_FOLDER}/Malloqueiro.o \
 		${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroGerency.o
 
-	$(CXX) -shared -o ${LIB_FOLDER}/malloqueiro.so ${MALLOQUEIRO_OUTPUT_FOLDER}/libmalloqueiro.a
+	$(CXX) -shared -o ${LIB_FOLDER}/malloqueiro.so ${MALLOQUEIRO_OUTPUT_FOLDER}/libmalloqueiro.a $(CXXFLAGS)
 
 run: compile
 	@echo "----------------- Running program"
