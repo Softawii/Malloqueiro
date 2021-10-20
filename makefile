@@ -19,7 +19,11 @@ setup:
 	@if [ ! -d "out/Malloqueiro/" ]; then  \
 		echo "out/Malloqueiro/ folder not found, creating folder and subfolders"; \
 		mkdir -p "out/Malloqueiro/"; \
-    fi 
+    fi
+	@if [ ! -d "lib/" ]; then  \
+		echo "lib/ folder not found, creating folder"; \
+		mkdir -p "lib/"; \
+    fi
 
 compile: library
 	@echo "----------------- Compiling program"
