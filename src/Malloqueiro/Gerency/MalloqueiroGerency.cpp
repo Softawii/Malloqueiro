@@ -1,9 +1,9 @@
 #include "MalloqueiroGerency.h"
 #include <iostream>
 
-namespace Apenas {
+namespace MalloqueiroGerency {
 
-    void MalloqueiroGerency::memoryState(){
+    void memoryState(){
         std::cout << "Current memory state" << std::endl;
     };
 

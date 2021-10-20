@@ -1,18 +1,24 @@
 #include "Malloqueiro.h"
 #include <iostream>
 
-namespace Apenas {
+namespace Malloqueiro {
 
-    int Malloqueiro::init(int size) {
+    int init(int size) {
         std::cout << "Initialized " << size << " bytes" << std::endl;
+
+        return -1;
     }
 
-    void* Malloqueiro::malloc(int size) {
+    void* malloc(int size) {
         std::cout << "Allocated " << size << " bytes" << std::endl;
+
+        return NULL;
     }
 
-    int Malloqueiro::free(void *ptr) {
+    int free(void *ptr) {
         std::cout << "Memory released " << std::endl;
+
+        return -1;
     }
 
 }

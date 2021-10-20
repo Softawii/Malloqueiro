@@ -1,8 +1,5 @@
 #pragma once
 
-namespace Apenas {
-    class MalloqueiroGerency {
-        public:
-            static void memoryState();
-    };
+namespace MalloqueiroGerency {
+    void memoryState();
 }
