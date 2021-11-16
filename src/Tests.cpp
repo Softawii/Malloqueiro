@@ -1,6 +1,6 @@
-#include "Malloqueiro/Malloqueiro.h"
-#include "Malloqueiro/Gerency/MalloqueiroGerency.h"
-#include "Malloqueiro/LowLevel/MalloqueiroLowLevel.h"
+#include "Malloqueiro/Malloqueiro.hpp"
+#include "Malloqueiro/Gerency/MalloqueiroGerency.hpp"
+#include "Malloqueiro/LowLevel/MalloqueiroLowLevel.hpp"
 #include <cassert>
 #include <unistd.h>
 #include <iostream>

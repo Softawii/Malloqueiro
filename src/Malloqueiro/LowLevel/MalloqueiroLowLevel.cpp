@@ -1,4 +1,4 @@
-#include "MalloqueiroLowLevel.h"
+#include "MalloqueiroLowLevel.hpp"
 #include <iostream>
 
 namespace MalloqueiroLowLevel {

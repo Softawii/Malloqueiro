@@ -1,5 +1,5 @@
-#include "MalloqueiroGerency.h"
-#include "../LowLevel/MalloqueiroLowLevel.h"
+#include "MalloqueiroGerency.hpp"
+#include "../LowLevel/MalloqueiroLowLevel.hpp"
 #include <iostream>
 
 namespace MalloqueiroGerency {

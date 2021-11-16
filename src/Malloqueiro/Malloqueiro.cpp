@@ -1,5 +1,5 @@
-#include "Malloqueiro.h"
-#include "LowLevel/MalloqueiroLowLevel.h"
+#include "Malloqueiro.hpp"
+#include "LowLevel/MalloqueiroLowLevel.hpp"
 #include <cassert>
 #include <unistd.h>
 
