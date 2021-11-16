@@ -2,9 +2,17 @@ name: Makefile CI
 
 on:
   push:
-    branches: [ main ]
+    paths:
+      - '**.h'
+      - '**.cpp'
+      - 'makefile'
+    branches:
+      - main
+      - dev
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+      - dev
 
 jobs:
   build:
