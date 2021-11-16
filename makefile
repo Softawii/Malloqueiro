@@ -32,7 +32,7 @@ setup:
 compile: library
 	@echo "----------------- Compiling program"
 	$(CXX) $(SOURCE_FOLDER)/Program.cpp -o $(OUTPUT_FOLDER)/Program.out $(CXXFLAGS) -L${MALLOQUEIRO_OUTPUT_FOLDER}/ -lmalloqueiro
-	$(CXX) $(SOURCE_FOLDER)/Tests.cpp -o $(OUTPUT_FOLDER)/Tests.out $(CXXFLAGS) -L${MALLOQUEIRO_OUTPUT_FOLDER}/ -lmalloqueiro
+	$(CXX) $(SOURCE_FOLDER)/Tests.cpp -o $(OUTPUT_FOLDER)/Tests.out $(CXXFLAGS) -L${MALLOQUEIRO_OUTPUT_FOLDER}/ -lmalloqueiro -DTEST
 
 library: setup
 	@echo "----------------- Linking libraries"
