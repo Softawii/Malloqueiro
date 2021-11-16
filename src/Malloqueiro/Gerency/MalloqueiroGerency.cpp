@@ -5,7 +5,7 @@
 namespace MalloqueiroGerency {
 
     unsigned long long memoryState(){
-        MalloqueiroLowLevel::t_block block = MalloqueiroLowLevel::base;
+        MalloqueiroLowLevel::t_block block = (MalloqueiroLowLevel::t_block) MalloqueiroLowLevel::base;
         if (block == NULL) {
             std::cout << "Nenhum bloco foi alocado" << std::endl;
             return -1;

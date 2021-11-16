@@ -11,12 +11,12 @@
 int main(int argc, char const *argv[]) {
     
     std::cout << "hello world" << std::endl;
-    // Malloqueiro::init(10);
+    // std::cout << sizeof(MalloqueiroLowLevel::s_block) << std::endl;
     int * aa = (int *) Malloqueiro::malloc(4);
     (*aa) = 10;
     MalloqueiroGerency::memoryState();
     std::cout << *(aa) << std::endl;
-    std::cout << Malloqueiro::free(aa) << std::endl;
+    std::cout << (Malloqueiro::free(aa) ? "sucesso no free": "falha no free") << std::endl;
     std::cout << *(aa) << std::endl;
     MalloqueiroGerency::memoryState();
 

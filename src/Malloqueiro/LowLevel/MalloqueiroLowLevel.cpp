@@ -2,7 +2,7 @@
 #include <iostream>
 
 namespace MalloqueiroLowLevel {
-    t_block base = NULL;
+    void *base = NULL;
     
     /*
     Divide o bloco 'b' baseado em size.
@@ -49,7 +49,7 @@ namespace MalloqueiroLowLevel {
     Retorna um bloco que tenha tamanho suficiente para caber um bloco de tamanho size.
     */
     t_block findFittingBlock(t_block *last, size_t size){
-        t_block b = base;
+        t_block b = (t_block) base;
         while (b && !(b->free && b->size >= size)) {
             *last = b;
             b = b->next;
@@ -62,7 +62,7 @@ namespace MalloqueiroLowLevel {
         t_block b;
         if (base) {
             /* First find a block */
-            t_block last = base;
+            t_block last = (t_block) base;
             b = findFittingBlock(&last, size); // tenta encontrar um bloco livre com tamanho >= size
             if (b) {
                 /* se for possível dividir esse bloco */
@@ -85,7 +85,10 @@ namespace MalloqueiroLowLevel {
             }
             base = b;
         }
-        return (b->data);
+        std::cout << "b: " << b << std::endl;
+        std::cout << "b->ptr: " << b->ptr << std::endl;
+        std::cout << "b->data: " << b->data << std::endl;
+        return b->data;
     }
 
     /* Une o bloco 'b' com o próximo bloco, se o próximo estiver livre. */
@@ -110,7 +113,10 @@ namespace MalloqueiroLowLevel {
     bool isValidAddress(void *ptr) {
         if (base) {
             if (ptr > base && ptr < sbrk (0)) {
-                return ptr == getBlock(ptr)->ptr;
+                std::cout << "getBlock(ptr): " << getBlock(ptr) << std::endl;
+                std::cout << "getBlock(ptr)->ptr: " << getBlock(ptr)->ptr << std::endl;
+                std::cout << "getBlock(ptr)->data +: " << getBlock(ptr)->data << std::endl;
+                return ptr == (getBlock(ptr)->ptr);
             }
         }
         return false;
