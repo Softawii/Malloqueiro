@@ -85,9 +85,6 @@ namespace MalloqueiroLowLevel {
             }
             base = b;
         }
-        std::cout << "b: " << b << std::endl;
-        std::cout << "b->ptr: " << b->ptr << std::endl;
-        std::cout << "b->data: " << b->data << std::endl;
         return b->data;
     }
 
@@ -113,9 +110,6 @@ namespace MalloqueiroLowLevel {
     bool isValidAddress(void *ptr) {
         if (base) {
             if (ptr > base && ptr < sbrk (0)) {
-                std::cout << "getBlock(ptr): " << getBlock(ptr) << std::endl;
-                std::cout << "getBlock(ptr)->ptr: " << getBlock(ptr)->ptr << std::endl;
-                std::cout << "getBlock(ptr)->data +: " << getBlock(ptr)->data << std::endl;
                 return ptr == (getBlock(ptr)->ptr);
             }
         }
