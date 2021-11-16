@@ -7,11 +7,11 @@ namespace MalloqueiroLowLevel {
         size_t size; // 8 bytes?
         struct s_block *next; // 8 bytes?
         struct s_block *prev; // 8 bytes?
-        bool free; // 1
         void *ptr; // 8 bytes?
+        bool free; // 1
         /* A pointer to the allocated block */
         char data[1]; // 1 byte?
-    };
+    } __attribute__((packed)); // prevent memory alignment
     
     // funciona mas desperdiça memória pelo alinhamento do compilador
     #define BLOCK_SIZE sizeof(struct s_block) 
