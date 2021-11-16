@@ -29,7 +29,7 @@ void test_1() {
     assert(MalloqueiroGerency::memoryState() == sizeof(int) * size + sizeof(float) * size);
     assert(Malloqueiro::free(inteiros) == true);
     assert(Malloqueiro::free(floats) == true);
-    assert(MalloqueiroGerency::memoryState() == -1);
+    assert(MalloqueiroGerency::memoryState() == -1llu);
     std::cout << "Teste 1: encerrado sem falhas" << std::endl;
 }
 
