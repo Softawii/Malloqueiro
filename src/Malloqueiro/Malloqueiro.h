@@ -1,7 +1,8 @@
 #pragma once
+#include <cstddef>
 
 namespace Malloqueiro {
-    int init(int size);
-    void* malloc(int size);
-    int free(void *ptr);
+    int init(size_t size);
+    void* malloc(size_t size);
+    bool free(void *ptr);
 }

@@ -1,5 +1,5 @@
 #pragma once
 
 namespace MalloqueiroGerency {
-    void memoryState();
+    unsigned long long memoryState();
 }

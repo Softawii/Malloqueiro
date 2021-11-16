@@ -17,11 +17,11 @@ jobs:
 #     - name: configure
 #       run: ./configure
       
-    - name: Install dependencies
+    - name: Compile
       run: make compile
       
-#     - name: Run check
-#       run: make check
+    - name: Run tests
+      run: make test
       
 #     - name: Run distcheck
 #       run: make distcheck

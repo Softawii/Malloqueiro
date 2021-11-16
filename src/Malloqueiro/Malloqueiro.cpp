@@ -1,24 +1,28 @@
 #include "Malloqueiro.h"
-#include <iostream>
+#include "LowLevel/MalloqueiroLowLevel.h"
+#include <cassert>
+#include <unistd.h>
 
 namespace Malloqueiro {
 
-    int init(int size) {
-        std::cout << "Initialized " << size << " bytes" << std::endl;
-
+    int init(size_t size) {
+        assert(false && "init(int size) is not implemented");
         return -1;
     }
-
-    void* malloc(int size) {
-        std::cout << "Allocated " << size << " bytes" << std::endl;
-
-        return NULL;
+    /*
+    Dado o tamanho da memória solicitada pelo processo do usuário.
+    Retorna um ponteiro de tamanho size.        
+    */
+    void* malloc(size_t size) {
+        return MalloqueiroLowLevel::malloc(size);
     }
 
-    int free(void *ptr) {
-        std::cout << "Memory released " << std::endl;
-
-        return -1;
+    /*
+    Libera espaço de memória alocado pelo ponteiro.
+    Retorna true se houve sucesso e false se ocorreu alguma falha.
+    */
+    bool free(void *ptr) {
+        return MalloqueiroLowLevel::free(ptr);
     }
 
 }

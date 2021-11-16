@@ -9,6 +9,10 @@ CXX = g++
 
 all: clean setup compile run
 
+test: clean setup compile
+	@echo "----------------- Running tests"
+	$(OUTPUT_FOLDER)/Tests.out
+
 clean:
 	@echo "----------------- Cleaning output folder"
 	rm -rf $(OUTPUT_FOLDER)/*
@@ -28,15 +32,18 @@ setup:
 compile: library
 	@echo "----------------- Compiling program"
 	$(CXX) $(SOURCE_FOLDER)/Program.cpp -o $(OUTPUT_FOLDER)/Program.out $(CXXFLAGS) -L${MALLOQUEIRO_OUTPUT_FOLDER}/ -lmalloqueiro
+	$(CXX) $(SOURCE_FOLDER)/Tests.cpp -o $(OUTPUT_FOLDER)/Tests.out $(CXXFLAGS) -L${MALLOQUEIRO_OUTPUT_FOLDER}/ -lmalloqueiro
 
 library: setup
 	@echo "----------------- Linking libraries"
 	$(CXX) -c ${MALLOQUEIRO_SOURCE_FOLDER}/Malloqueiro.cpp -o ${MALLOQUEIRO_OUTPUT_FOLDER}/Malloqueiro.o $(CXXFLAGS)
 	$(CXX) -c ${MALLOQUEIRO_SOURCE_FOLDER}/Gerency/MalloqueiroGerency.cpp -o ${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroGerency.o $(CXXFLAGS)
+	$(CXX) -c ${MALLOQUEIRO_SOURCE_FOLDER}/LowLevel/MalloqueiroLowLevel.cpp -o ${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroLowLevel.o $(CXXFLAGS)
 
 	ar rvs ${MALLOQUEIRO_OUTPUT_FOLDER}/libmalloqueiro.a \
 		${MALLOQUEIRO_OUTPUT_FOLDER}/Malloqueiro.o \
-		${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroGerency.o
+		${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroGerency.o \
+		${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroLowLevel.o
 
 	$(CXX) -shared -o ${LIB_FOLDER}/malloqueiro.so ${MALLOQUEIRO_OUTPUT_FOLDER}/libmalloqueiro.a $(CXXFLAGS)
 
