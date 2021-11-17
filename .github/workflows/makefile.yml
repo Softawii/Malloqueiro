@@ -29,7 +29,7 @@ jobs:
       run: make compile
       
     - name: Run tests
-      run: make test DEBUG=-DTEST
+      run: make test
       
 #     - name: Run distcheck
 #       run: make distcheck

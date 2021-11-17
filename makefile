@@ -6,12 +6,16 @@ MALLOQUEIRO_SOURCE_FOLDER = ${SOURCE_FOLDER}/${MALLOQUEIRO_FOLDER}
 LIB_FOLDER = lib
 CXXFLAGS = -O3 -Wall
 CXX = g++
+DEBUG =
 
 all: clean setup compile run
 
-test: clean setup compile
+test: set-test-variable clean setup compile
 	@echo "----------------- Running tests"
 	$(OUTPUT_FOLDER)/Tests.out
+
+set-test-variable:
+	@$(eval DEBUG += -DTEST)
 
 clean:
 	@echo "----------------- Cleaning output folder"
