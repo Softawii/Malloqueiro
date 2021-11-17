@@ -4,17 +4,15 @@
 namespace MalloqueiroLowLevel {
     
     struct s_block {
-        size_t size; // 8 bytes?
-        struct s_block *next; // 8 bytes?
-        struct s_block *prev; // 8 bytes?
-        void *ptr; // 8 bytes?
-        bool free; // 1
-        /* A pointer to the allocated block */
-        char data[1]; // 1 byte, mas ignorado. Determina final do header e inicio do ponteiro
-    } __attribute__((packed));
+        size_t size;
+        struct s_block *next;
+        struct s_block *prev;
+        void *ptr;
+        bool free;
+        char data[1]; // Determina final do header e inicio do ponteiro
+    } __attribute__((packed)); // Remove alinhamento de memória feito pelo compilador
     
-    
-    #define BLOCK_SIZE 33 // 34 - 1 do char data[1]
+    #define BLOCK_SIZE (sizeof(s_block) - 1) // sizeof(s_block) - 1 do char data[1]
 
     typedef struct s_block *t_block;
     
