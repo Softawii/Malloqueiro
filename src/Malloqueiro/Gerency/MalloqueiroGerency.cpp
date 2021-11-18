@@ -4,6 +4,11 @@
 
 namespace MalloqueiroGerency {
 
+    /**
+     * @brief Exibe o estado da memória alocada atual
+     * 
+     * @return Retorna o total de memória alocada
+     */
     unsigned long long memoryState(){
         MalloqueiroLowLevel::t_block block = (MalloqueiroLowLevel::t_block) MalloqueiroLowLevel::base;
         if (block == NULL) {

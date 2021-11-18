@@ -12,10 +12,14 @@ namespace Malloqueiro {
         assert(false && "init(int size) is not implemented");
         return -1;
     }
-    /*
-    Dado o tamanho da memória solicitada pelo processo do usuário.
-    Retorna um ponteiro de tamanho size.        
-    */
+   
+    /**
+     * @brief Dado o tamanho da memória solicitada pelo processo do usuário.
+     * Retorna um ponteiro de tamanho size.    
+     * 
+     * @param size_t size 
+     * @return Ponteiro de tamanho size
+     */
     void* malloc(size_t size) {
         mtx.lock();
         void *ptr = MalloqueiroLowLevel::malloc(size);
@@ -23,10 +27,13 @@ namespace Malloqueiro {
         return ptr;
     }
 
-    /*
-    Libera espaço de memória alocado pelo ponteiro.
-    Retorna true se houve sucesso e false se ocorreu alguma falha.
-    */
+    /**
+     * @brief Libera espaço de memória alocado pelo ponteiro.
+     * Retorna true se houve sucesso e false se ocorreu alguma falha.
+     * 
+     * @param void* ptr 
+     * @return Se houve sucesso ou não
+     */
     bool free(void *ptr) {
         mtx.lock();
         bool success = MalloqueiroLowLevel::free(ptr);

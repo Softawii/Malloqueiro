@@ -3,12 +3,15 @@
 
 namespace MalloqueiroLowLevel {
     void *base = NULL;
-    
-    /*
-    Divide o bloco 'b' baseado em size.
-    Cria um bloco 'newBlock' com (tamanho_de_b - size - BLOCK_SIZE),
-    O bloco 'b' fica com tamanho size.
-    */
+
+    /**
+     * @brief Divide o bloco 'b' baseado em size.
+     * Cria um bloco 'newBlock' com (tamanho_de_b - size - BLOCK_SIZE),
+     * O bloco 'b' fica com tamanho size.
+     * 
+     * @param b 
+     * @param size 
+     */
     void splitBlock(t_block b, size_t size) {
         t_block newBlock;
         newBlock = (t_block) (b->data + size);
@@ -24,11 +27,15 @@ namespace MalloqueiroLowLevel {
         }
     }
 
-    /*
-    Extende a heap com um bloco de tamanho size.
-    Se houve sucesso, retorna um ponteiro válido.
-    Caso contrário, retorna NULL.
-    */
+    /**
+     * @brief Extende a heap com um bloco de tamanho size.
+     * Se houve sucesso, retorna um ponteiro válido.
+     * Caso contrário, retorna NULL.
+     * 
+     * @param t_block last 
+     * @param size_t size 
+     * @return Bloco extendido
+     */
     t_block extendHeap(t_block last, size_t size) {
         t_block newBlock = (t_block) sbrk(0);
         if (sbrk(BLOCK_SIZE + size) == (void *) -1) {
@@ -45,9 +52,13 @@ namespace MalloqueiroLowLevel {
         return newBlock;
     }
 
-    /*
-    Retorna um bloco que tenha tamanho suficiente para caber um bloco de tamanho size.
-    */
+    /**
+     * @brief Retorna um bloco que tenha tamanho suficiente para caber um bloco de tamanho size.
+     * 
+     * @param t_block last 
+     * @param size_t size 
+     * @return Bloco livre
+     */
     t_block findFittingBlock(t_block *last, size_t size){
         t_block b = (t_block) base;
         while (b && !(b->free && b->size >= size)) {
@@ -57,7 +68,12 @@ namespace MalloqueiroLowLevel {
         return b;
     }
 
-    /* Aloca um ponteiro de tamanho size */
+    /**
+     * @brief Aloca um ponteiro de tamanho size
+     * 
+     * @param size_t size 
+     * @return void* ponteiro
+     */
     void *malloc(size_t size){
         t_block b;
         if (base) {
@@ -88,7 +104,12 @@ namespace MalloqueiroLowLevel {
         return b->data;
     }
 
-    /* Une o bloco 'b' com o próximo bloco, se o próximo estiver livre. */
+    /**
+     * @brief Une o bloco 'b' com o próximo bloco, se o próximo estiver livre.
+     * 
+     * @param t_block b bloco 
+     * @return Se for possível retorna o bloco b fundido com o próximo
+     */
     t_block fusion(t_block b){
         if (b->next && b->next->free){
             b->size += BLOCK_SIZE + b->next->size;
@@ -100,13 +121,23 @@ namespace MalloqueiroLowLevel {
         return b;
     }
 
-    /* Obtém o bloco do endereço */
+    /**
+     * @brief Obtém o bloco de um ponteiro alocado anteriormente
+     * 
+     * @param void* ponteiro
+     * @return Retorna o bloco de um ponteiro alocado anteriormente
+     */
     t_block getBlock(void *p){
         char *tmp = (char*) p;
         return (t_block) (p = tmp - BLOCK_SIZE);
     }
 
-    /* Verifica se ponteiro é um endereço válido */
+    /**
+     * @brief Verifica se ponteiro é um endereço válido
+     * 
+     * @param void *ptr 
+     * @return Retorna se é um endereço válido
+     */
     bool isValidAddress(void *ptr) {
         if (base) {
             if (ptr > base && ptr < sbrk (0)) {
@@ -116,7 +147,12 @@ namespace MalloqueiroLowLevel {
         return false;
     }
 
-    /* Desaloca memória do ponteiro */
+    /**
+     * @brief Desaloca memória do ponteiro
+     * 
+     * @param void* ponteiro
+     * @return Retorna se houve sucesso 
+     */
     bool free(void *p) {
         if (isValidAddress(p)) {
             t_block b = getBlock(p);
