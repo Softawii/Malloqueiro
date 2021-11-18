@@ -2,6 +2,9 @@
 #include "LowLevel/MalloqueiroLowLevel.hpp"
 #include <cassert>
 #include <unistd.h>
+#include <mutex>
+
+std::mutex mtx;
 
 namespace Malloqueiro {
 
@@ -14,7 +17,10 @@ namespace Malloqueiro {
     Retorna um ponteiro de tamanho size.        
     */
     void* malloc(size_t size) {
-        return MalloqueiroLowLevel::malloc(size);
+        mtx.lock();
+        void *ptr = MalloqueiroLowLevel::malloc(size);
+        mtx.unlock();
+        return ptr;
     }
 
     /*
@@ -22,7 +28,10 @@ namespace Malloqueiro {
     Retorna true se houve sucesso e false se ocorreu alguma falha.
     */
     bool free(void *ptr) {
-        return MalloqueiroLowLevel::free(ptr);
+        mtx.lock();
+        bool success = MalloqueiroLowLevel::free(ptr);
+        mtx.unlock();
+        return success;
     }
 
 }
