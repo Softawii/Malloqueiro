@@ -7,7 +7,10 @@
 #include <unistd.h>
 #include <iostream>
 
-/* Teste que verifica se os valores não foram alterados no processo */
+/**
+ * @brief Teste que verifica se os valores não foram alterados no processo
+ * 
+ */
 void test_1() {
     Stopwatch stopwatch;
     FREQUENCY(stopwatch);
@@ -40,7 +43,10 @@ void test_1() {
     std::cout << GREEN << "Teste 1: encerrado sem falhas. Tempo gasto: " << time_spent << "ms" << COLOR_RESET << std::endl;
 }
 
-/* Teste que aloca uma matriz n X m e verifica se os valores não foram alterados no processo */
+/**
+ * @brief Teste que aloca uma matriz n X m e verifica se os valores não foram alterados no processo
+ * 
+ */
 void test_2() {
     Stopwatch stopwatch;
     FREQUENCY(stopwatch);
@@ -79,7 +85,10 @@ void test_2() {
     std::cout << GREEN << "Teste 2: encerrado sem falhas. Tempo gasto: " << time_spent << "ms" << COLOR_RESET << std::endl;
 }
 
-/* Teste que aloca uma matriz n X m X p e verifica se os valores não foram alterados no processo */
+/**
+ * @brief Teste que aloca uma matriz n X m X p e verifica se os valores não foram alterados no processo
+ * 
+ */
 void test_3() {
     Stopwatch stopwatch;
     FREQUENCY(stopwatch);
@@ -129,9 +138,10 @@ void test_3() {
     std::cout << GREEN << "Teste 3: encerrado sem falhas. Tempo gasto: " << time_spent << "ms" << COLOR_RESET << std::endl;
 }
 
-/*
-Teste que aloca uma matriz n X m X p vetorizada e verifica se os valores não foram alterados no processo
-*/
+/**
+ * @brief Teste que aloca uma matriz n X m X p vetorizada e verifica se os valores não foram alterados no processo
+ * 
+ */
 void test_4() {
     Stopwatch stopwatch;
     FREQUENCY(stopwatch);
