@@ -1,13 +1,18 @@
 #include "Malloqueiro/Malloqueiro.hpp"
 #include "Malloqueiro/Gerency/MalloqueiroGerency.hpp"
 #include "Malloqueiro/LowLevel/MalloqueiroLowLevel.hpp"
+#include "libs/Clock.hpp"
+#include "libs/Color.hpp"
 #include <cassert>
 #include <unistd.h>
 #include <iostream>
 
 /* Teste que verifica se os valores não foram alterados no processo */
 void test_1() {
-    std::cout << "Teste 1: iniciando" << std::endl;
+    Stopwatch stopwatch;
+    FREQUENCY(stopwatch);
+    START_STOPWATCH(stopwatch);
+    std::cout << "Teste 1: iniciando" << RED << std::endl;
     const size_t n = 1000;
     int *inteiros = (int *) Malloqueiro::malloc(sizeof(int) * n);
     for (size_t i = 0; i < n; i++) {
@@ -29,12 +34,18 @@ void test_1() {
     assert(Malloqueiro::free(inteiros) == true);
     assert(Malloqueiro::free(floats) == true);
     assert(MalloqueiroGerency::memoryState() == -1llu);
-    std::cout << "Teste 1: encerrado sem falhas" << std::endl;
+    std::cout << COLOR_RESET;
+    STOP_STOPWATCH(stopwatch);
+    double time_spent = stopwatch.mElapsedTime;
+    std::cout << GREEN << "Teste 1: encerrado sem falhas. Tempo gasto: " << time_spent << "ms" << COLOR_RESET << std::endl;
 }
 
 /* Teste que aloca uma matriz n X m e verifica se os valores não foram alterados no processo */
 void test_2() {
-    std::cout << "Teste 2: iniciando" << std::endl;
+    Stopwatch stopwatch;
+    FREQUENCY(stopwatch);
+    START_STOPWATCH(stopwatch);
+    std::cout << "Teste 2: iniciando" << RED << std::endl;
     const size_t n = 100;
     const size_t m = 50;
     int **inteiros = (int **) Malloqueiro::malloc(sizeof(int*) * n);
@@ -59,14 +70,21 @@ void test_2() {
     for (size_t i = 0; i < n; i++) {
         assert(Malloqueiro::free(inteiros[i]) == true);
     }
+    std::cout << RED;
     assert(Malloqueiro::free(inteiros) == true);
     assert(MalloqueiroGerency::memoryState() == -1llu);
-    std::cout << "Teste 2: encerrado sem falhas" << std::endl;
+    std::cout << COLOR_RESET;
+    STOP_STOPWATCH(stopwatch);
+    double time_spent = stopwatch.mElapsedTime;
+    std::cout << GREEN << "Teste 2: encerrado sem falhas. Tempo gasto: " << time_spent << "ms" << COLOR_RESET << std::endl;
 }
 
 /* Teste que aloca uma matriz n X m X p e verifica se os valores não foram alterados no processo */
 void test_3() {
-    std::cout << "Teste 3: iniciando" << std::endl;
+    Stopwatch stopwatch;
+    FREQUENCY(stopwatch);
+    START_STOPWATCH(stopwatch);
+    std::cout << "Teste 3: iniciando" << RED << std::endl;
     const size_t n = 100;
     const size_t m = 5;
     const size_t p = 99;
@@ -102,16 +120,23 @@ void test_3() {
         }
         assert(Malloqueiro::free(inteiros[i]) == true);
     }
+    
     assert(Malloqueiro::free(inteiros) == true);
     assert(MalloqueiroGerency::memoryState() == -1llu);
-    std::cout << "Teste 3: encerrado sem falhas" << std::endl;
+    std::cout << COLOR_RESET;
+    STOP_STOPWATCH(stopwatch);
+    double time_spent = stopwatch.mElapsedTime;
+    std::cout << GREEN << "Teste 3: encerrado sem falhas. Tempo gasto: " << time_spent << "ms" << COLOR_RESET << std::endl;
 }
 
 /*
 Teste que aloca uma matriz n X m X p vetorizada e verifica se os valores não foram alterados no processo
 */
 void test_4() {
-    std::cout << "Teste 4: iniciando" << std::endl;
+    Stopwatch stopwatch;
+    FREQUENCY(stopwatch);
+    START_STOPWATCH(stopwatch);
+    std::cout << "Teste 4: iniciando" << RED <<std::endl;
     const size_t n = 5;
     const size_t m = 5;
     const size_t p = 5;
@@ -139,13 +164,75 @@ void test_4() {
     assert(MalloqueiroGerency::memoryState() == size);
     assert(Malloqueiro::free(inteiros) == true);
     assert(MalloqueiroGerency::memoryState() == -1llu);
-    std::cout << "Teste 4: encerrado sem falhas" << std::endl;
+    std::cout << COLOR_RESET;
+    STOP_STOPWATCH(stopwatch);
+    double time_spent = stopwatch.mElapsedTime;
+    std::cout << GREEN << "Teste 4: encerrado sem falhas. Tempo gasto: " << time_spent << "ms" << COLOR_RESET << std::endl;
+}
+
+/**
+ * @brief Compara malloc e malloqueiro e informa o tempo de ambos
+ * 
+ */
+void test_5() {
+    Stopwatch stopwatch;
+    FREQUENCY(stopwatch);
+    START_STOPWATCH(stopwatch);
+    std::cout << "Teste 5: iniciando" << std::endl;
+    const size_t n = 10000;
+    
+    Stopwatch tempoMalloqueiro;
+    FREQUENCY(tempoMalloqueiro);
+    START_STOPWATCH(tempoMalloqueiro);
+    int *inteiros = (int *) Malloqueiro::malloc(sizeof(int) * n);
+    for (size_t i = 0; i < n; i++) {
+        inteiros[i] = 10;
+    }
+
+    for (size_t i = 0; i < n; i++) {
+        assert(inteiros[i] == 10);
+    }
+    STOP_STOPWATCH(tempoMalloqueiro);
+    double time_spent = tempoMalloqueiro.mElapsedTime;
+    std::cout << CYAN << "Tempo gasto pelo Malloqueiro: " << time_spent << "ms" << COLOR_RESET << std::endl;
+    
+    Stopwatch tempoMalloc;
+    FREQUENCY(tempoMalloc);
+    START_STOPWATCH(tempoMalloc);
+    int *inteiros_2 = (int *) malloc(sizeof(int) * n);
+    for (size_t i = 0; i < n; i++) {
+        inteiros_2[i] = 9;
+    }
+
+    for (size_t i = 0; i < n; i++) {
+        assert(inteiros_2[i] == 9);
+    }
+    STOP_STOPWATCH(tempoMalloc);
+    time_spent = tempoMalloc.mElapsedTime;
+    std::cout << PURPLE << "Tempo gasto pelo malloc: " << time_spent << "ms" << RED << std::endl;
+
+    constexpr size_t size = sizeof(int) * n;
+    assert(MalloqueiroGerency::memoryState() == size);
+    assert(Malloqueiro::free(inteiros) == true);
+    free(inteiros_2);
+    assert(MalloqueiroGerency::memoryState() == -1llu);
+    std::cout << COLOR_RESET;
+    STOP_STOPWATCH(stopwatch);
+    time_spent = stopwatch.mElapsedTime;
+    std::cout << GREEN << "Teste 5: encerrado sem falhas. Tempo gasto: " << time_spent << "ms" << COLOR_RESET << std::endl;
 }
 
 int main(int argc, char const *argv[]) {
+    Stopwatch stopwatch;
+    FREQUENCY(stopwatch);
+    START_STOPWATCH(stopwatch);
     test_1();
     test_2();
     test_3();
     test_4();
+    test_5();
+    STOP_STOPWATCH(stopwatch);
+    double time_spent = stopwatch.mElapsedTime;
+    std::cout << YELLOW << "Tempo total dos testes: " << time_spent << "m" << COLOR_RESET << std::endl;
     return 0;
 }
