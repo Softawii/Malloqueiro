@@ -10,8 +10,8 @@
 
 int main(int argc, char const *argv[]) {
     
-    std::cout << "hello world" << std::endl
-    std::cout << UINT64_MAX << std::endl
+    std::cout << "hello world" << std::endl;
+    std::cout << UINT64_MAX << std::endl;
 
     // int * aa = (int *) Malloqueiro::malloc(-1);
     // MalloqueiroGerency::memoryState();
