@@ -21,12 +21,12 @@ void benchmark_1() {
     std::cout << "Benchmark 1: iniciando" << std::endl;
 
     std::ofstream result;
-    result.open("./result.csv");
+    result.open("./resultados/result.csv");
     result << "tamanho;tempo_malloqueiro;tempo_malloc" << std::endl;
 
-    for (size_t j = 2; j < 1000000; j*=2) {
+    for (size_t j = 2; j < 100000; j+= 1024) {
         // Malloqueiro
-        result << std::setfill('0') << std::setw(7) << j << ";";
+        result << j << ";";
         Stopwatch tempoMalloqueiro;
         FREQUENCY(tempoMalloqueiro);
         START_STOPWATCH(tempoMalloqueiro);
@@ -56,7 +56,6 @@ void benchmark_1() {
         STOP_STOPWATCH(tempoMalloc);
         time_spent = tempoMalloc.mElapsedTime;
         result << std::fixed << std::setprecision(10) << time_spent << std::endl;
-        std::cout << time_spent << std::endl;
     }
     result.close();
     STOP_STOPWATCH(stopwatch);

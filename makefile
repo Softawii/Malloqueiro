@@ -25,7 +25,7 @@ clean:
 	@echo "----------------- Cleaning output folder"
 	rm -rf $(OUTPUT_FOLDER)/*
 	rm -rf $(LIB_FOLDER)/*
-	rm -rf ./data.csv
+	rm -rf ./resultados/*
 
 setup:
 	@echo "----------------- Setup"
@@ -37,7 +37,7 @@ setup:
 		echo "lib/ folder not found, creating folder"; \
 		mkdir -p "lib/"; \
     fi
-	touch ./data.csv
+	touch ./resultados/result.csv
 
 compile: library
 	@echo "----------------- Compiling program"
