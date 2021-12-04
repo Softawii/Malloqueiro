@@ -60,7 +60,7 @@ library: setup
 		${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroGerency.o \
 		${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroLowLevel.o
 
-	$(CXX) -shared -o ${LIB_FOLDER}/malloqueiro.so ${MALLOQUEIRO_OUTPUT_FOLDER}/libmalloqueiro.a $(CXXFLAGS) ${DEBUG}
+	rm -rf ${MALLOQUEIRO_OUTPUT_FOLDER}/*.o
 
 run: compile
 	@echo "----------------- Running program"
