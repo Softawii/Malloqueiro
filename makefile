@@ -14,6 +14,10 @@ test: set-test-variable clean setup compile
 	@echo "----------------- Running tests"
 	$(OUTPUT_FOLDER)/Tests.out
 
+benchmark: set-test-variable clean setup compile
+	@echo "----------------- Running tests"
+	$(OUTPUT_FOLDER)/Benchmark.out
+
 set-test-variable:
 	@$(eval DEBUG += -DTEST)
 
@@ -21,6 +25,7 @@ clean:
 	@echo "----------------- Cleaning output folder"
 	rm -rf $(OUTPUT_FOLDER)/*
 	rm -rf $(LIB_FOLDER)/*
+	rm -rf ./data.csv
 
 setup:
 	@echo "----------------- Setup"
@@ -32,11 +37,13 @@ setup:
 		echo "lib/ folder not found, creating folder"; \
 		mkdir -p "lib/"; \
     fi
+	touch ./data.csv
 
 compile: library
 	@echo "----------------- Compiling program"
 	$(CXX) $(SOURCE_FOLDER)/Program.cpp -o $(OUTPUT_FOLDER)/Program.out $(CXXFLAGS) -L${MALLOQUEIRO_OUTPUT_FOLDER}/ -lmalloqueiro ${DEBUG}
 	$(CXX) $(SOURCE_FOLDER)/Tests.cpp -o $(OUTPUT_FOLDER)/Tests.out $(CXXFLAGS) -L${MALLOQUEIRO_OUTPUT_FOLDER}/ -lmalloqueiro ${DEBUG}
+	$(CXX) $(SOURCE_FOLDER)/Benchmark.cpp -o $(OUTPUT_FOLDER)/Benchmark.out $(CXXFLAGS) -L${MALLOQUEIRO_OUTPUT_FOLDER}/ -lmalloqueiro ${DEBUG}
 
 library: setup
 	@echo "----------------- Linking libraries"
