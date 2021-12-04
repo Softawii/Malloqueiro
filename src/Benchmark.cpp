@@ -9,22 +9,24 @@
 #include <fstream>
 #include <filesystem>
 #include <iomanip>
+#include <string>
 
 /**
  * @brief Compara malloc e malloqueiro e informa o tempo de ambos
  * 
  */
-void benchmark_1() {
+void benchmark_1(int step) {
     Stopwatch stopwatch;
     FREQUENCY(stopwatch);
     START_STOPWATCH(stopwatch);
-    std::cout << "Benchmark 1: iniciando" << std::endl;
-
+    std::cout << "Benchmark 1: iniciando passo " << step << std::endl;
     std::ofstream result;
-    result.open("./resultados/result.csv");
+    std::string path = "./resultados/result_" + std::to_string(step) + ".csv";
+    result.open(path);
+
     result << "tamanho;tempo_malloqueiro;tempo_malloc" << std::endl;
 
-    for (size_t j = 2; j < 100000; j+= 1024) {
+    for (size_t j = 1024; j <= 1024000; j+= 1024) {
         // Malloqueiro
         result << j << ";";
         Stopwatch tempoMalloqueiro;
@@ -60,15 +62,19 @@ void benchmark_1() {
     result.close();
     STOP_STOPWATCH(stopwatch);
     double time_spent = stopwatch.mElapsedTime;
-    std::cout << GREEN << "Benchmark 1: encerrado sem falhas. Tempo gasto: " << time_spent << "ms" << COLOR_RESET << std::endl;
+    std::cout << GREEN << "Benchmark 1: passo " << step << " encerrado sem falhas. Tempo gasto: " << time_spent << "ms" << COLOR_RESET << std::endl;
 }
 
+/**
+ * @brief Avalia se ao alocar sem desalocar muitos blocos ocorrerá algum erro
+ * 
+ */
 void benchmark_2() {
     Stopwatch stopwatch;
     FREQUENCY(stopwatch);
     START_STOPWATCH(stopwatch);
     std::cout << "Benchmark 2: iniciando" << RED << std::endl;
-    for (size_t j = 1; j < 1000000; j*=2) {
+    for (size_t j = 1024; j <= 1024000; j+= 1024) {
         int *inteiros = (int *) Malloqueiro::malloc(sizeof(int) * j);
         for (size_t i = 1; i < j; i++) {
             inteiros[i] = 7;
@@ -84,10 +90,18 @@ void benchmark_2() {
 
 int main(int argc, char const *argv[]) {
     Stopwatch stopwatch;
+    if (argc < 2) {
+        exit(-1);
+    }
     FREQUENCY(stopwatch);
     START_STOPWATCH(stopwatch);
-    benchmark_1();
-    benchmark_2();
+    if (std::atoi(argv[1]) == 1) {
+        benchmark_1(std::atoi(argv[2]));
+    } else if (std::atoi(argv[1]) == 2) {
+        benchmark_2();
+    } else {
+        exit(-2);
+    }
     STOP_STOPWATCH(stopwatch);
     double time_spent = stopwatch.mElapsedTime;
     std::cout << YELLOW << "Tempo total dos benchmarks: " << time_spent << "ms" << COLOR_RESET << std::endl;

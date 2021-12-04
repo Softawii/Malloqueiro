@@ -16,7 +16,7 @@ test: set-test-variable clean setup compile
 
 benchmark: set-test-variable clean setup compile
 	@echo "----------------- Running tests"
-	$(OUTPUT_FOLDER)/Benchmark.out
+	./benchmark.sh
 
 set-test-variable:
 	@$(eval DEBUG += -DTEST)
@@ -41,7 +41,6 @@ setup:
 		echo "resultados/ folder not found, creating folder"; \
 		mkdir -p "resultados/"; \
     fi
-	touch ./resultados/result.csv
 
 compile: library
 	@echo "----------------- Compiling program"
