@@ -23,7 +23,7 @@ namespace MalloqueiroLowLevel {
     t_block findFittingBlock(t_block, size_t);
     void *malloc(size_t);
     t_block fusion(t_block);
-    t_block getBlock(void);
-    int isValidAddress(void);
+    t_block getBlock(void*);
+    bool isValidAddress(void*);
     bool free(void*);
 }
