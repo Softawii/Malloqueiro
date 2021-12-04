@@ -37,7 +37,7 @@ setup:
 		echo "lib/ folder not found, creating folder"; \
 		mkdir -p "lib/"; \
     fi
-	touch ./resultados/result.csv
+	touch resultados/result.csv
 
 compile: library
 	@echo "----------------- Compiling program"
