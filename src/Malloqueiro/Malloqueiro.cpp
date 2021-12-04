@@ -7,11 +7,6 @@
 std::mutex mtx;
 
 namespace Malloqueiro {
-
-    int init(size_t size) {
-        assert(false && "init(int size) is not implemented");
-        return -1;
-    }
    
     /**
      * @brief Dado o tamanho da memória solicitada pelo processo do usuário.
