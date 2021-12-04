@@ -209,7 +209,7 @@ void test_5() {
     constexpr size_t size = sizeof(int) * n + sizeof(float) * n;
     assert(MalloqueiroGerency::memoryState() == size);
     void *mid_ptr = sbrk(0);
-    assert(init_ptr != mid_ptr);
+    assert(init_ptr != mid_ptr && init_ptr < mid_ptr);
     assert(Malloqueiro::free(inteiros) == true);
     assert(Malloqueiro::free(floats) == true);
     void *end_ptr = sbrk(0);
