@@ -35,9 +35,9 @@ namespace MalloqueiroManagement {
     };
 
     /**
-     * @brief Exibe o estado da memória alocada atual
+     * @brief Exibe o estado dos blocos (se está livre e o seu tamanho)
      * 
-     * @return Retorna o total de memória alocada
+     * @return Retorna o total de blocos livres
      */
     unsigned long long freeBlocks(){
         MalloqueiroLowLevel::t_block block = (MalloqueiroLowLevel::t_block) MalloqueiroLowLevel::base;
@@ -54,7 +54,7 @@ namespace MalloqueiroManagement {
         unsigned long long totalBlocosLivres = 0;
         for (size_t i = 0; block != NULL; i++, block = block->next) {
         #ifndef TEST
-            std::cout << "Bloco " << i << ": está livre?" << (block->free ? "Sim":"Não") << std::endl;
+            std::cout << "Bloco " << i << ": está livre?" << (block->free ? "Sim":"Não") << ". Tamanho: " << block->size << " bytes" << std::endl;
         #endif
             totalBlocosLivres += block->size;
         }
