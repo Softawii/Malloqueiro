@@ -1,8 +1,8 @@
-#include "MalloqueiroGerency.hpp"
+#include "MalloqueiroManagement.hpp"
 #include "../LowLevel/MalloqueiroLowLevel.hpp"
 #include <iostream>
 
-namespace MalloqueiroGerency {
+namespace MalloqueiroManagement {
 
     /**
      * @brief Exibe o estado da memória alocada atual

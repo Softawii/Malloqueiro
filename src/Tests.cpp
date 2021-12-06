@@ -1,5 +1,5 @@
 #include "Malloqueiro/Malloqueiro.hpp"
-#include "Malloqueiro/Gerency/MalloqueiroGerency.hpp"
+#include "Malloqueiro/Management/MalloqueiroManagement.hpp"
 #include "Malloqueiro/LowLevel/MalloqueiroLowLevel.hpp"
 #include "libs/Clock.hpp"
 #include "libs/Color.hpp"
@@ -33,10 +33,10 @@ void test_1() {
     }
 
     constexpr size_t size = sizeof(int) * n + sizeof(float) * n;
-    assert(MalloqueiroGerency::memoryState() == size);
+    assert(MalloqueiroManagement::memoryState() == size);
     assert(Malloqueiro::free(inteiros) == true);
     assert(Malloqueiro::free(floats) == true);
-    assert(MalloqueiroGerency::memoryState() == -1llu);
+    assert(MalloqueiroManagement::memoryState() == -1llu);
     std::cout << COLOR_RESET;
     STOP_STOPWATCH(stopwatch);
     double time_spent = stopwatch.mElapsedTime;
@@ -72,13 +72,13 @@ void test_2() {
     }
     
     constexpr size_t size = (sizeof(int*) * n) + (sizeof(int) * n * m);
-    assert(MalloqueiroGerency::memoryState() == size);
+    assert(MalloqueiroManagement::memoryState() == size);
     for (size_t i = 0; i < n; i++) {
         assert(Malloqueiro::free(inteiros[i]) == true);
     }
     std::cout << RED;
     assert(Malloqueiro::free(inteiros) == true);
-    assert(MalloqueiroGerency::memoryState() == -1llu);
+    assert(MalloqueiroManagement::memoryState() == -1llu);
     std::cout << COLOR_RESET;
     STOP_STOPWATCH(stopwatch);
     double time_spent = stopwatch.mElapsedTime;
@@ -122,7 +122,7 @@ void test_3() {
     }
     
     constexpr size_t size = (sizeof(int**) * n) + (sizeof(int*) * n * m) + (sizeof(int) * n * m * p);
-    assert(MalloqueiroGerency::memoryState() == size);
+    assert(MalloqueiroManagement::memoryState() == size);
     for (size_t i = 0; i < n; i++) {
         for (size_t j = 0; j < m; j++) {
             assert(Malloqueiro::free(inteiros[i][j]) == true);
@@ -131,7 +131,7 @@ void test_3() {
     }
     
     assert(Malloqueiro::free(inteiros) == true);
-    assert(MalloqueiroGerency::memoryState() == -1llu);
+    assert(MalloqueiroManagement::memoryState() == -1llu);
     std::cout << COLOR_RESET;
     STOP_STOPWATCH(stopwatch);
     double time_spent = stopwatch.mElapsedTime;
@@ -171,9 +171,9 @@ void test_4() {
     }
     
     constexpr size_t size = (sizeof(int) * n * m * p);
-    assert(MalloqueiroGerency::memoryState() == size);
+    assert(MalloqueiroManagement::memoryState() == size);
     assert(Malloqueiro::free(inteiros) == true);
-    assert(MalloqueiroGerency::memoryState() == -1llu);
+    assert(MalloqueiroManagement::memoryState() == -1llu);
     std::cout << COLOR_RESET;
     STOP_STOPWATCH(stopwatch);
     double time_spent = stopwatch.mElapsedTime;
@@ -207,14 +207,14 @@ void test_5() {
     }
 
     constexpr size_t size = sizeof(int) * n + sizeof(float) * n;
-    assert(MalloqueiroGerency::memoryState() == size);
+    assert(MalloqueiroManagement::memoryState() == size);
     void *mid_ptr = sbrk(0);
     assert(init_ptr != mid_ptr && init_ptr < mid_ptr);
     assert(Malloqueiro::free(inteiros) == true);
     assert(Malloqueiro::free(floats) == true);
     void *end_ptr = sbrk(0);
     assert(init_ptr == end_ptr);
-    assert(MalloqueiroGerency::memoryState() == -1llu);
+    assert(MalloqueiroManagement::memoryState() == -1llu);
     std::cout << COLOR_RESET;
     STOP_STOPWATCH(stopwatch);
     double time_spent = stopwatch.mElapsedTime;

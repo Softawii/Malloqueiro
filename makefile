@@ -51,12 +51,12 @@ compile: library
 library: setup
 	@echo "----------------- Linking libraries"
 	$(CXX) -c ${MALLOQUEIRO_SOURCE_FOLDER}/Malloqueiro.cpp -o ${MALLOQUEIRO_OUTPUT_FOLDER}/Malloqueiro.o $(CXXFLAGS) ${DEBUG}
-	$(CXX) -c ${MALLOQUEIRO_SOURCE_FOLDER}/Gerency/MalloqueiroGerency.cpp -o ${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroGerency.o $(CXXFLAGS) ${DEBUG}
+	$(CXX) -c ${MALLOQUEIRO_SOURCE_FOLDER}/Management/MalloqueiroManagement.cpp -o ${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroManagement.o $(CXXFLAGS) ${DEBUG}
 	$(CXX) -c ${MALLOQUEIRO_SOURCE_FOLDER}/LowLevel/MalloqueiroLowLevel.cpp -o ${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroLowLevel.o $(CXXFLAGS) ${DEBUG}
 
 	ar rvs ${MALLOQUEIRO_OUTPUT_FOLDER}/libmalloqueiro.a \
 		${MALLOQUEIRO_OUTPUT_FOLDER}/Malloqueiro.o \
-		${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroGerency.o \
+		${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroManagement.o \
 		${MALLOQUEIRO_OUTPUT_FOLDER}/MalloqueiroLowLevel.o
 
 	rm -rf ${MALLOQUEIRO_OUTPUT_FOLDER}/*.o

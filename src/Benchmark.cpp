@@ -1,5 +1,5 @@
 #include "Malloqueiro/Malloqueiro.hpp"
-#include "Malloqueiro/Gerency/MalloqueiroGerency.hpp"
+#include "Malloqueiro/Management/MalloqueiroManagement.hpp"
 #include "Malloqueiro/LowLevel/MalloqueiroLowLevel.hpp"
 #include "libs/Clock.hpp"
 #include "libs/Color.hpp"
