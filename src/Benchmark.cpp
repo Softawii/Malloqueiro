@@ -15,28 +15,28 @@
  * @brief Compara malloc e malloqueiro e informa o tempo de ambos
  * 
  */
-void benchmark_1(int step) {
+void benchmark_1(size_t step, std::string filepath) {
     Stopwatch stopwatch;
     FREQUENCY(stopwatch);
     START_STOPWATCH(stopwatch);
     std::cout << "Benchmark 1: iniciando passo " << step << std::endl;
     std::ofstream result;
-    std::string path = "./resultados/result_" + std::to_string(step) + ".csv";
-    result.open(path);
+    result.open(filepath, std::ios_base::app);
+    if (!std::filesystem::exists(filepath)) {
+        result << "tamanho;tempo_malloqueiro;tempo_malloc" << std::endl;
+    }
 
-    result << "tamanho;tempo_malloqueiro;tempo_malloc" << std::endl;
-
-    for (size_t j = 1024; j <= 1024000; j+= 1024) {
+    {
         // Malloqueiro
-        result << j << ";";
+        result << step << ";";
         Stopwatch tempoMalloqueiro;
         FREQUENCY(tempoMalloqueiro);
         START_STOPWATCH(tempoMalloqueiro);
-        int *inteiros = (int *) Malloqueiro::malloc(sizeof(int) * j);
-        for (size_t i = 1; i < j; i++) {
+        int *inteiros = (int *) Malloqueiro::malloc(sizeof(int) * step);
+        for (size_t i = 0; i < step; i++) {
             inteiros[i] = 7;
         }
-        for (size_t i = 1; i < j; i++) {
+        for (size_t i = 0; i < step; i++) {
             assert(inteiros[i] == 7);
         }
         Malloqueiro::free(inteiros);
@@ -47,11 +47,11 @@ void benchmark_1(int step) {
         Stopwatch tempoMalloc;
         FREQUENCY(tempoMalloc);
         START_STOPWATCH(tempoMalloc);
-        inteiros = (int *) malloc(sizeof(int) * j);
-        for (size_t i = 1; i < j; i++) {
+        inteiros = (int *) malloc(sizeof(int) * step);
+        for (size_t i = 0; i < step; i++) {
             inteiros[i] = 22;
         }
-        for (size_t i = 1; i < j; i++) {
+        for (size_t i = 0; i < step; i++) {
             assert(inteiros[i] == 22);
         }
         free(inteiros);
@@ -59,6 +59,7 @@ void benchmark_1(int step) {
         time_spent = tempoMalloc.mElapsedTime;
         result << std::fixed << std::setprecision(10) << time_spent << std::endl;
     }
+
     result.close();
     STOP_STOPWATCH(stopwatch);
     double time_spent = stopwatch.mElapsedTime;
@@ -76,10 +77,10 @@ void benchmark_2() {
     std::cout << "Benchmark 2: iniciando" << RED << std::endl;
     for (size_t j = 1024; j <= 1024000; j+= 1024) {
         int *inteiros = (int *) Malloqueiro::malloc(sizeof(int) * j);
-        for (size_t i = 1; i < j; i++) {
+        for (size_t i = 0; i < j; i++) {
             inteiros[i] = 7;
         }
-        for (size_t i = 1; i < j; i++) {
+        for (size_t i = 0; i < j; i++) {
             assert(inteiros[i] == 7);
         }
     }
@@ -96,7 +97,8 @@ int main(int argc, char const *argv[]) {
     FREQUENCY(stopwatch);
     START_STOPWATCH(stopwatch);
     if (std::atoi(argv[1]) == 1) {
-        benchmark_1(std::atoi(argv[2]));
+        std::string filepath = "./resultados/result_" + std::string(argv[3]) + ".csv";
+        benchmark_1(std::atoi(argv[2]), filepath);
     } else if (std::atoi(argv[1]) == 2) {
         benchmark_2();
     } else {
