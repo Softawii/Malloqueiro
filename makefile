@@ -40,6 +40,22 @@ setup:
 		echo "resultados/ folder not found, creating folder"; \
 		mkdir -p "resultados/"; \
     fi
+	@if [ ! -d "resultados/benchmark_1/" ]; then  \
+		echo "resultados/benchmark_1/ folder not found, creating folder"; \
+		mkdir -p "resultados/benchmark_1/"; \
+    fi
+	@if [ ! -d "resultados/benchmark_3/" ]; then  \
+		echo "resultados/benchmark_3/ folder not found, creating folder"; \
+		mkdir -p "resultados/benchmark_3/"; \
+    fi
+	@if [ ! -d "resultados/benchmark_4/" ]; then  \
+		echo "resultados/benchmark_4/ folder not found, creating folder"; \
+		mkdir -p "resultados/benchmark_4/"; \
+    fi
+	@if [ ! -d "resultados/benchmark_5/" ]; then  \
+		echo "resultados/benchmark_5/ folder not found, creating folder"; \
+		mkdir -p "resultados/benchmark_5/"; \
+    fi
 
 compile: library
 	@echo "----------------- Compiling program"

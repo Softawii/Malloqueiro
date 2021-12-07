@@ -5,3 +5,6 @@ for step in {1..50..1}; do \
     done
 done
 out/Benchmark.out 2;
+for step in {1..50..1}; do \
+    out/Benchmark.out 3; \
+done
