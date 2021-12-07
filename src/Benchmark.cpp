@@ -87,7 +87,7 @@ void benchmark_2() {
 }
 
 /**
- * @brief xxxxxxxxxxxxxxxxxxxx
+ * @brief Tempo de alocação do malloqueiro de 1024 até 1024000 bytes a cada 1024 bytes de forma sequencial
  * 
  */
 void benchmark_3() {
@@ -115,7 +115,7 @@ void benchmark_3() {
 }
 
 /**
- * @brief xxxxxxxxxxxxxx
+ * @brief Tempo de alocação do malloqueiro de 1024 até 1024000 bytes a cada 1024 bytes de forma paralela
  * 
  */
 void benchmark_4() {
@@ -144,7 +144,7 @@ void benchmark_4() {
 }
 
 /**
- * @brief xxxxxxxxxxxxxx
+ * @brief Tempo de alocação do malloc do glibc de 1024 até 1024000 bytes a cada 1024 bytes de forma paralela
  * 
  */
 void benchmark_5() {
@@ -172,12 +172,40 @@ void benchmark_5() {
     std::cout << GREEN << "Benchmark 5: encerrado sem falhas. Tempo gasto: " << time_spent << "ms" << COLOR_RESET << std::endl;
 }
 
+/**
+ * @brief Tempo de alocação do malloc do glibc de 1024 até 1024000 bytes a cada 1024 bytes de forma sequencial
+ * 
+ */
+void benchmark_6() {
+    Stopwatch stopwatch;
+    FREQUENCY(stopwatch);
+    START_STOPWATCH(stopwatch);
+    std::ofstream result;
+    result.open("./resultados/benchmark_6/resultado.csv", std::ios_base::app);
+    std::cout << "Benchmark 6: iniciando" << RED << std::endl;
+    for (size_t j = 1024; j <= 1024000; j+= 1024) {
+        int *inteiros = (int *) malloc(sizeof(int) * j);
+        for (size_t i = 0; i < j; i++) {
+            inteiros[i] = 77;
+        }
+        for (size_t i = 0; i < j; i++) {
+            assert(inteiros[i] == 77);
+        }
+        free(inteiros);
+    }
+    STOP_STOPWATCH(stopwatch);
+    double time_spent = stopwatch.mElapsedTime;
+    result << std::fixed << std::setprecision(10) << time_spent << std::endl;
+    result.close();
+    std::cout << GREEN << "Benchmark 6: encerrado sem falhas. Tempo gasto: " << time_spent << "ms" << COLOR_RESET << std::endl;
+}
+
 int main(int argc, char const *argv[]) {
     Stopwatch stopwatch;
     FREQUENCY(stopwatch);
     START_STOPWATCH(stopwatch);
-    std::string filepath = "./resultados/result_" + std::string(argv[3]) + ".csv";
     if (std::atoi(argv[1]) == 1) {
+        std::string filepath = "./resultados/benchmark_1/result_" + std::string(argv[3]) + ".csv";
         benchmark_1(std::atoi(argv[2]), filepath);
     } else if (std::atoi(argv[1]) == 2) {
         benchmark_2();
@@ -185,6 +213,7 @@ int main(int argc, char const *argv[]) {
         benchmark_3();
         benchmark_4();
         benchmark_5();
+        benchmark_6();
     } else {
         exit(-2);
     }
