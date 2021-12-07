@@ -24,7 +24,7 @@ clean:
 	@echo "----------------- Cleaning output folder"
 	rm -rf $(OUTPUT_FOLDER)/*
 	rm -rf $(LIB_FOLDER)/*
-	rm -rf ./resultados/*
+	rm -rf ./resultados/
 
 setup:
 	@echo "----------------- Setup"
@@ -55,6 +55,10 @@ setup:
 	@if [ ! -d "resultados/benchmark_5/" ]; then  \
 		echo "resultados/benchmark_5/ folder not found, creating folder"; \
 		mkdir -p "resultados/benchmark_5/"; \
+    fi
+	@if [ ! -d "resultados/benchmark_6/" ]; then  \
+		echo "resultados/benchmark_6/ folder not found, creating folder"; \
+		mkdir -p "resultados/benchmark_6/"; \
     fi
 
 compile: library
